@@ -91,4 +91,26 @@
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
         </ul>
     </div>
+
+    <div>
+        <h2>db connection test</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>contents</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var datum in (List<NewTableModel>)ViewData["List"]){
+                    <tr>
+                        <td>@datum.Id </td>
+                        <td>@datum.Title </td>
+                        <td>@datum.Contents </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

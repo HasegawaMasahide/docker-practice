@@ -5,13 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using app.Models;
+using app.Data;
 
 namespace app.Controllers
 {
     public class HomeController : Controller
     {
+        protected ApplicationDbContext db;
+
+        public HomeController(ApplicationDbContext context){
+            this.db = context;
+        }
+
         public IActionResult Index()
         {
+            ViewData["List"] = db.NewTableList.ToList();
             return View();
         }
 
