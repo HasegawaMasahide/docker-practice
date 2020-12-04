@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace app.Models
 {
-    [Table("NewTable")]
-    public class NewTableModel
+    [Table("SampleModel")]
+    public class SampleModel
     {
         [Key]
         [Column(name : "id")]

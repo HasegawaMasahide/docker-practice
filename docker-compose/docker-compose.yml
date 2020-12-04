@@ -5,8 +5,10 @@ services:
       context: ./dotnet
     depends_on:
       - "db"
+    expose: 
+      - 5001
     ports:
-      - "8080:80"
+      - 5001:5001
     environment: 
       ASPNETCORE_ENVIRONMENT: "Development"
       ConnectionStrings__DefaultConnection: "server=db;userid=${DB_USER};password=${DB_PASS};database=${DB_NAME};Charset='utf8';"
@@ -19,12 +21,20 @@ services:
       - db-store:/var/lib/mysql
       - ./logs:/var/log/mysql
       - ./mysql/mysql.conf:/etc/mysql/conf.d/my.cnf
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_PASS}
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
       - TZ=${TZ}
+  # web:
+  #   build:
+  #     context: ./nginx
+  #   environment: 
+  #     BACKEND_HOST: 'app:5001'
+  #   ports:
+  #     - 80:80
 
 volumes:
   db-store:

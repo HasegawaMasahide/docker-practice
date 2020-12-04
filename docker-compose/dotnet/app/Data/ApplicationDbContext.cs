@@ -12,6 +12,6 @@ namespace app.Data
         {
         }
 
-        public DbSet<NewTableModel> NewTableList { get; set; }
+        public DbSet<SampleModel> NewTableList { get; set; }
     }
 }
