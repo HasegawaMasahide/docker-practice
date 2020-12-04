@@ -1,0 +1,6 @@
+.env
+
+/logs
+
+/dotnet/app/bin
+/dotnet/app/obj
