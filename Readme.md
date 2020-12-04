@@ -1,6 +1,8 @@
 - dotnet
   - 単純なコンソールアプリをDockerfileで定義している
+  - `dotnet publish -c Release`
   - `docker build -t {image_name} .` => `docker create --name {container_name} {image_name}`
 - docker-compose
   - .net coreとDBを別個のコンテナに分け、連携させている
+  - `dotnet publish -c Release`
   - `docker-compose up -d --build`
