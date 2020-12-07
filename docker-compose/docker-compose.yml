@@ -3,12 +3,13 @@ services:
   app:
     build:
       context: ./dotnet
+    privileged: true
     depends_on:
       - "db"
     expose: 
-      - 5001
+      - 5000
     ports:
-      - 5001:5001
+      - 5000:5000
     environment: 
       ASPNETCORE_ENVIRONMENT: "Development"
       ConnectionStrings__DefaultConnection: "server=db;userid=${DB_USER};password=${DB_PASS};database=${DB_NAME};Charset='utf8';"
