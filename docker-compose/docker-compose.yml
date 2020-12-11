@@ -1,16 +1,25 @@
 version: "3"
 services:
+  work:
+    build:
+      context: .
+      dockerfile: ./work/Dockerfile
+    command: ["bash"]
+    stdin_open: true
   app:
     build:
-      context: ./dotnet
-    privileged: true
+      context: .
+      dockerfile: ./dotnet/Dockerfile
+    stdin_open: true
     depends_on:
       - "db"
-    expose: 
-      - 5000
+    volumes:
+      - ./src:/app
     ports:
       - 5000:5000
+    command: ["dotnet", "watch", "run"]
     environment: 
+      # DOTNET_USE_POLLING_FILE_WATCHER: 1
       ASPNETCORE_ENVIRONMENT: "Development"
       ConnectionStrings__DefaultConnection: "server=db;userid=${DB_USER};password=${DB_PASS};database=${DB_NAME};Charset='utf8';"
   db:
@@ -29,13 +38,5 @@ services:
       - MYSQL_PASSWORD=${DB_PASS}
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
       - TZ=${TZ}
-  # web:
-  #   build:
-  #     context: ./nginx
-  #   environment: 
-  #     BACKEND_HOST: 'app:5001'
-  #   ports:
-  #     - 80:80
-
 volumes:
   db-store:

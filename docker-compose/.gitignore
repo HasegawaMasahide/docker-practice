@@ -2,5 +2,5 @@
 
 /logs
 
-/dotnet/app/bin
-/dotnet/app/obj
+/src/bin
+/src/obj
