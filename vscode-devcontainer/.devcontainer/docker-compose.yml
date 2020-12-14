@@ -1,0 +1,36 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./dotnet/Dockerfile
+      args:
+        - VARIANT=2.1
+        - INSTALL_NODE=true
+        - NODE_VERSION=lts/*
+        - INSTALL_AZURE_CLI=false
+    volumes: 
+      - "../app:/work/app"
+      - "../.vscode:/work/.vscode"
+    environment: 
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "server=db;userid=${MYSQL_USER};password=${MYSQL_PASSWORD};database=${MYSQL_DATABASE};Charset='utf8';"
+    depends_on:
+      - "db"
+    ports:
+      - 5000:5000
+      - 5001:5001
+    command: /bin/bash -c "while sleep 1000; do :; done"
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 13307:3306
+    volumes:
+      - db-store:/var/lib/mysql
+      - ./logs:/var/log/mysql
+      - ./mysql/mysql.conf:/etc/mysql/conf.d/my.cnf
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+    env_file: ../.env
+volumes:
+  db-store:

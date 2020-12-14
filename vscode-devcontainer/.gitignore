@@ -1,0 +1,5 @@
+/.env
+/.devcontainer/logs
+
+/app/bin
+/app/obj
