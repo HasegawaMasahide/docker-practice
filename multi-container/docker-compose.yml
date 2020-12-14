@@ -6,6 +6,8 @@ services:
       dockerfile: ./work/Dockerfile
     command: ["bash"]
     stdin_open: true
+    environment: 
+      MSBuildSDKsPath: /usr/share/dotnet/sdk/2.1.811/Sdks
   app:
     build:
       context: .
