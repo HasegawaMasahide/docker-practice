@@ -1,8 +1,20 @@
-- dotnet
+- single-container
   - 単純なコンソールアプリをDockerfileで定義している
-  - `dotnet publish -c Release`
-  - `docker build -t {image_name} .` => `docker create --name {container_name} {image_name}`
-- docker-compose
-  - .net coreとDBを別個のコンテナに分け、連携させている
-  - `dotnet publish -c Release`
-  - `docker-compose up -d --build`
+  - Dockerfileの理解用で、機能はめちゃくちゃ不足している
+  - コマンド
+    - `dotnet publish -c Release`
+    - `docker build -t {image_name} .` => `docker create --name {container_name} {image_name}`
+- multi-container
+  - .net coreとDB,作業用マシンを別個のコンテナに分け、連携させている
+  - 方向性は合ってそうだが、デバッグ周りの設定が上手く行かなかったためお蔵。(.devcontainerとworkが役割かぶってるし…)
+  - コマンド
+    - `dotnet publish -c Release`
+    - `docker-compose up -d --build`
+- vscode-devcontainer
+  - devcontainer起点で作ったら上手くいった
+  - 使い方
+    - vscodeに拡張機能[ms-vscode-remote.remote-containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)を入れる
+    - 左下の「><」をクリックして「Reopen in Container」(ワークスペースのトップレベルがvscode-devcontainerディレクトリである必要がある)
+  - ref.
+    - [C# を触ってみたいけど自分の環境に .NET の SDK 入れるの何か嫌だという人向けハローワールド](https://qiita.com/okazuki/items/51a27573fcb90b1188a2)
+    - [VSCode Remote Containersで.NET Core + MySQL + Elasticsearchの開発環境構築](https://qiita.com/ashicom/items/88d5e5bfc0febe1db30a)
